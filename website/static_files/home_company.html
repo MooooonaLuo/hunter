@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<script src="jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+$(document).ready(() => {
+  $('#readButton').click(() => {
+    const requestURL = 'youtuber/' + $('#searchBox').val();
+    console.log('making ajax request to:', requestURL);
+
+    // From: http://learn.jquery.com/ajax/jquery-ajax-methods/
+    // Using the core $.ajax() method since it's the most flexible.
+    // ($.get() and $.getJSON() are nicer convenience functions)
+ 
+
+    $.ajax({
+      // all URLs are relative to http://localhost:3000/
+      url: requestURL,
+      type: 'GET',
+      dataType : 'json', // this URL returns data in JSON format
+      success: (data) => {
+        console.log('You received some data!', data);
+
+        if (data) {
+          var link = document.createElement("a");
+          link.href = "youtuber_a.html";
+
+          var number = document.createElement("class");
+          number.className = "number";
+
+          var rank = document.createElement("p");
+          rank.id = "rank";
+
+          var photo = document.createElement("class");
+          photo.className = "photo";
+
+          var img = document.createElement("img");
+          img.id = "photo";
+          img.src = "photo.png";
+
+          var info = document.createElement("class");
+
+          var name = document.createElement("p");
+          name.id = "name";
+          name.className = "name";
+          var category = document.createElement("p");
+          category.id = "category";
+          category.className = "category";
+          var subscribers = document.createElement("span");
+          subscribers.id = "subscribers";
+         
+          $(".list").append(link);
+          link.append(number);
+          link.append(photo);
+          link.append(info);
+          info.append(name);
+          info.append(category);
+          info.append(subscribers)
+          photo.append(img);
+          number.append(rank);
+         
+
+          $('#name').html($('#searchBox').val());
+          $('#category').html(data.category_name);
+          $('#subscribers').html('followers: ' + data.followers);
+    //    $('#upvote').html('upvote: ' + data.upvote);
+          $('#rank').html('1');
+          $('.sublist').html('');
+          // $('#photo').attr('src', data.pet).attr('width', '300px');
+        } else {
+          $('#name').html('Error: could not find user at URL: ' + requestURL);
+          // clear the display
+          // $('#category').html('');
+          // $('#subscribers').html('');
+    //      $('#upvote').html('');
+    //      $('#photo').attr('src', '').attr('width', '0px');
+        }
+      }
+    });
+  });
+  });
+	</script>
+
+	<style type="text/css">
+		#photo{
+			width: 70%;
+		}
+		body{
+			background: rgb(33,33,33);
+		}
+		.header{
+			height: 80px;
+			background: rgb(49,49,49);
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.03), 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+		}
+		#logo{
+			margin-left: 1%;
+			margin-top: 1.4%;
+		}
+		h3{
+			margin-top: 0;
+			float: left;
+		}
+		.nav{
+			float: right;
+			margin-top: 25px;
+			width: 60px;
+			margin-right: 20px;
+		}
+		.search{
+			margin-left: 40%;
+			margin-top: 5vw;
+		}
+		.list{
+			margin-left: 4vw;
+		}
+		.list a{
+			float: left;
+			margin-left: 3vw;
+			margin-top: 3vw;
+			width: 25vw;
+			height: 9vw;
+			background: rgb(69,69,69);
+			text-decoration: none;
+			border-radius: 5px;
+			padding: 8px;
+		}
+		.list p{
+			margin: 0;
+
+		}
+
+		.number{
+			width: 2vw;
+			float: left;
+		}
+		.photo{
+			width: 8vw;
+			float: left;
+			padding-top: 1vw;
+		}
+		.info{
+			width: 15vw;
+			float: left;
+			padding-top: 1vw;
+		}
+
+		#searchBox{
+			height: 37px;
+			width: 300px;
+			border: 0;
+			padding: 0;
+			font-size: 14px;
+		}
+		#readButton {
+		  font-family: Verdana, Geneva, sans-serif;
+		  background-color: rgb(255,49,49);
+		  border: none;
+		  color: white;
+		  padding: 10px 15px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 14px;
+		  cursor: pointer;
+	}
+	.category{
+		font-size: 12px;
+		line-height: 24px;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="header">
+		<img id="logo" src="hunter_logo.png" width="15%">
+		<div class="nav">
+			<!-- <a href="chat_company.html"><img src="chat.png" width="30%"></a>&nbsp; &nbsp; &nbsp; &nbsp; -->
+			<a href="about_me_company.html"><img src="photo.png" width="60%"></a>
+		</div>
+	</div>
+<div class="main_body">
+	<div class="search">
+		<input id="searchBox" type="text" name="">
+		<button id="readButton">Search</button>
+	</div>
+	<br><br>
+	<div class="list">
+		<div class="sublist">
+			<a id="youtubers" href="youtuber_a.html">
+				<div class="number">
+					<p>1</p>
+				</div>
+				<div class="photo">
+					<img src="photo.png" width="70%">
+				</div>
+				<div class="info">
+					<p class="name">YouTuber Name</p>
+					<p class="category">Category</p>
+					<span class="subscriber"><img src="subscriber.png" width="7%"> Subscribers: 2.3M</span>
+					&nbsp;
+					<!-- <span class="upvote"><img src="upvote.png" width="9%"> 95%<span> -->
+				</div>
+			</a>
+			<a id="youtubers" href="youtuber_a.html">
+				<div class="number">
+					<p>1</p>
+				</div>
+				<div class="photo">
+					<img src="photo.png" width="70%">
+				</div>
+				<div class="info">
+					<p class="name">YouTuber Name</p>
+					<p class="category">Category</p>
+					<span class="subscriber"><img src="subscriber.png" width="7%"> 2.3M</span>
+					&nbsp;
+					<!-- <span class="upvote"><img src="upvote.png" width="9%"> 95%<span> -->
+				</div>
+			</a><a id="youtubers" href="youtuber_a.html">
+				<div class="number">
+					<p>1</p>
+				</div>
+				<div class="photo">
+					<img src="photo.png" width="70%">
+				</div>
+				<div class="info">
+					<p class="name">YouTuber Name</p>
+					<p class="category">Category</p>
+					<span class="subscriber"><img src="subscriber.png" width="7%"> 2.3M</span>
+					&nbsp;
+					<!-- <span class="upvote"><img src="upvote.png" width="9%"> 95%<span> -->
+				</div>
+			</a><a id="youtubers" href="youtuber_a.html">
+				<div class="number">
+					<p>1</p>
+				</div>
+				<div class="photo">
+					<img src="photo.png" width="70%">
+				</div>
+				<div class="info">
+					<p class="name">YouTuber Name</p>
+					<p class="category">Category</p>
+					<span class="subscriber"><img src="subscriber.png" width="7%"> 2.3M</span>
+					&nbsp;
+					<!-- <span class="upvote"><img src="upvote.png" width="9%"> 95%<span> -->
+				</div>
+			</a><a id="youtubers" href="youtuber_a.html">
+				<div class="number">
+					<p>1</p>
+				</div>
+				<div class="photo">
+					<img src="photo.png" width="70%">
+				</div>
+				<div class="info">
+					<p class="name">YouTuber Name</p>
+					<p class="category">Category</p>
+					<span class="subscriber"><img src="subscriber.png" width="7%"> 2.3M</span>
+					&nbsp;
+					<!-- <span class="upvote"><img src="upvote.png" width="9%"> 95%<span> -->
+				</div>
+			</a>
+		</div>
+		<!-- <a href="youtuber_a.html">
+			<div class="number">
+				<p id="rank">6</p>
+			</div>
+			<div class="photo">
+				<img id="photo" src="photo.png" width="70%">
+			</div>
+			<div class="info">
+				<p id="name" class="name">YouTuber Name</p>
+				<p id="category" class="category">Category</p>
+				<span id="subscribers"><img src="subscriber.png" width="7%"> 2.3M</span>
+				&nbsp;
+				 <span id="upvote"><img src="upvote.png" width="7%"> 95%<span> -->
+			</div>
+		</a> 
+	</div>
+</div>
+</body>
+</html>
